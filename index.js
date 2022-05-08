@@ -41,6 +41,15 @@ async function run() {
         })
 
 
+        // to get data from client side input fields
+
+        app.post('/product', async(req, res) => {
+            const newService = req.body;
+            const result = await productCollection.insertOne(newService);
+            res.send(result);
+        })
+
+
 
 
 
@@ -49,7 +58,7 @@ async function run() {
 
         app.delete("/product/:id", async(req, res) => {
             const id = req.params.id;
-            const query = {_id: ObjectId(id)};
+            const query = {_id: ObjectId(id)}
             const result = await productCollection.deleteOne(query);
 
             res.send(result);
