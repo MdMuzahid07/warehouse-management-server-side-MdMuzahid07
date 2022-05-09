@@ -53,6 +53,8 @@ async function run() {
         // to update data on server
         app.put('/product/:id', async(req, res) => {
             const id = req.params.id;
+
+            console.log(id)
             const filter = {_id: ObjectId(id)}
             const options = { upsert: true}
 
