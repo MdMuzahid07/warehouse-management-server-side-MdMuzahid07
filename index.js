@@ -50,6 +50,26 @@ async function run() {
         })
 
 
+        // to update data on server
+        app.put('/product/:id', async(req, res) => {
+            const id = req.params.id;
+            const filter = {_id: ObjectId(id)}
+            const options = { upsert: true}
+
+            const updatedDOc = {
+                $set: {
+                    quantity: updatedDOc.quantity
+                }
+            }
+
+            const result = await productCollection.updateOne(filter, options, updatedDOc);
+
+            res.send(result);
+
+
+        })
+
+
 
 
 
