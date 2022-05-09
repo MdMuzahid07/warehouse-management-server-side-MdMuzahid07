@@ -41,7 +41,7 @@ async function run() {
         })
 
 
-        // to get data from client side input fields
+        // to post data to database from client side input fields
 
         app.post('/product', async(req, res) => {
             const newService = req.body;
