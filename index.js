@@ -33,9 +33,9 @@ async function run() {
 
         // for load a product by id
 
-        app.get('/product/:id', async(req, res) => {
+        app.get('/product/:id', async (req, res) => {
             const id = req.params.id;
-            const query = {_id: ObjectId(id)};
+            const query = { _id: ObjectId(id) };
             const product = await productCollection.findOne(query);
             res.send(product);
         })
@@ -43,7 +43,7 @@ async function run() {
 
         // to post data to database from client side input fields
 
-        app.post('/product', async(req, res) => {
+        app.post('/product', async (req, res) => {
             const newService = req.body;
             const result = await productCollection.insertOne(newService);
             res.send(result);
@@ -51,20 +51,20 @@ async function run() {
 
 
         // to update data on server
-        app.put('/product/:id', async(req, res) => {
+        app.put('/product/:id', async (req, res) => {
             const id = req.params.id;
 
             console.log(id)
-            const filter = {_id: ObjectId(id)}
-            const options = { upsert: true}
-
-            const updatedDOc = {
+            const filter = { _id: ObjectId(id) }
+            const options = { upsert: true }
+            const updateQuantity = req.body;
+            const updatedDoc = {
                 $set: {
-                    quantity: updatedDOc.quantity
+                    quantity: updateQuantity.quantity
                 }
-            }
+            };
 
-            const result = await productCollection.updateOne(filter, options, updatedDOc);
+            const result = await productCollection.updateOne(filter, updatedDoc, options);
 
             res.send(result);
 
@@ -75,12 +75,12 @@ async function run() {
 
 
 
-        
+
         //delete a document from database
 
-        app.delete("/product/:id", async(req, res) => {
+        app.delete("/product/:id", async (req, res) => {
             const id = req.params.id;
-            const query = {_id: ObjectId(id)}
+            const query = { _id: ObjectId(id) }
             const result = await productCollection.deleteOne(query);
 
             res.send(result);
